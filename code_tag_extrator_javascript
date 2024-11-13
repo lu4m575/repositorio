@@ -1,0 +1,16 @@
+var linkElements = document.querySelectorAll('a'); // Select all <a> elements
+var ips = [];
+
+linkElements.forEach(function(e) {
+    var content = e.innerHTML.trim(); // Get the inner content and trim any whitespace
+    if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(content)) { // Check if content matches x.x.x.x format
+        ips.push(content);
+    }
+});
+
+var ipsString = ips.join('\n'); // Join all matching IPs with a newline character
+var a = document.createElement('a');
+a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(ipsString);
+a.download = 'filtered_ips.txt'; // Set file name
+document.body.appendChild(a);
+a.click();
